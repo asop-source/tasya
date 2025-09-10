@@ -74,11 +74,13 @@
                                     </div>
                                 </td>
 
-                                <!-- Info Produk -->
                                 <td style="width:50%; vertical-align:top; padding-left: 10px; border-left:2px solid #000;">
                                     <!-- Logo Perusahaan -->
-                                    <div style="text-align:right; font-weight:bold; font-size:18px; padding: 7px;">
-                                        <span t-esc="company.name"/>
+                                    <div style="text-align:right; font-weight:bold; font-size:14px; padding: 7px;">
+                                         <img t-if="label.company_id.logo" 
+                                                 t-att-src="'%s/web/image/res.company/%s/logo' % (label.get_base_url(), label.company_id.id)" 
+                                                 alt="Company Logo" 
+                                                 style="max-height:35px;"/>
                                     </div>
 
 
@@ -109,7 +111,7 @@
                                 </td>
 
                                 <!-- Kolom tanggal vertikal -->
-                                <td style="padding-left: 3px; text-align:center; vertical-align:middle;
+                                <td style="text-align:center; vertical-align:middle;
                                            writing-mode: vertical-rl; text-orientation: upright;
                                            font-size:11px; font-weight:bold; transform: rotate(270deg);">
                                     <span t-esc="time.strftime('%d%m%y')"/>
