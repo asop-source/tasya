@@ -56,74 +56,73 @@
     
     <template id="report_product_label_50_x_30_mm_template">
         <t t-call="web.html_container">
-            <t t-set="company" t-value="env.company"/>
-            <t t-foreach="docs" t-as="label">
-                <t t-set="qty" t-value="1"/>
-                <t t-if="label.qty > 0" t-set="qty" t-value="label.qty" />
-                <t t-foreach="list(range(qty))" t-as="index_qty">
-                <div class="page" style="page-break-inside: avoid; page-break-after:auto;">
-                    <div style="height: 136px !important; width: 370px !important; padding:5px; font-size:11px; font-family:Arial;">
-                        <table style="width:100%; border:0;">
-                            <tr>
-                                <!-- QR Code -->
-                                <td style="width:50%; text-align:center; vertical-align:top; padding-right: 10px;">
-                                    <div t-field="label.product_id.default_code"
-                                         t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 180, 'height': 180, 'humanreadable': 0}"/>
-                                    <div style="margin-top:2px; background:#e3f2fd; display:inline-block; padding:1px 4px; font-size:10px; font-weight:bold;">
-                                        <span t-esc="label.product_id.default_code or ''"/>
-                                    </div>
-                                </td>
+        <t t-set="company" t-value="env.company"/>
+        <!-- Konversi ukuran: 50mm ≈ 189px, 30mm ≈ 113px pada 96 DPI -->
+        <t t-foreach="docs" t-as="label">
+            <t t-set="qty" t-value="1"/>
+            <t t-if="label.qty > 0" t-set="qty" t-value="label.qty" />
+            <t t-foreach="list(range(qty))" t-as="index_qty">
+            <div class="page" style="width: 189px; height: 110px; padding: 2px; font-size: 9px; font-family: Arial; box-sizing: border-box;">
+                <table style="width: 100%; height: 100%; border: 0; margin: 0;">
+                    <tr>
+                        <!-- QR Code -->
+                        <td style="width: 40%; text-align: center; padding-right: 3px;">
+                            <div t-field="label.product_id.default_code"
+                                 t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 70, 'height': 70, 'humanreadable': 0}"/>
+                            <div style="margin-top: 1px; background: #e3f2fd; padding: 1px 2px; font-size: 7px; font-weight: bold;">
+                                <span t-esc="label.product_id.default_code or ''"/>
+                            </div>
+                        </td>
 
-                                <td style="width:50%; vertical-align:top; padding-left: 10px; border-left:2px solid #000;">
-                                    <!-- Logo Perusahaan -->
-                                    <div style="text-align:right; font-weight:bold; font-size:14px; padding: 7px;">
-                                         <img t-if="label.company_id.logo" 
-                                                 t-att-src="'%s/web/image/res.company/%s/logo' % (label.get_base_url(), label.company_id.id)" 
-                                                 alt="Company Logo" 
-                                                 style="max-height:35px;"/>
-                                    </div>
+                        <td style="width: 55%; padding-left: 3px; border-left: 1px solid #000;">
+                            <!-- Logo Perusahaan -->
+                            <div style="text-align: right; font-weight: bold; font-size: 9px; padding: 2px;">
+                                 <img t-if="label.company_id.logo" 
+                                         t-att-src="'%s/web/image/res.company/%s/logo' % (label.get_base_url(), label.company_id.id)" 
+                                         alt="Company Logo" 
+                                         style="max-height: 20px;"/>
+                            </div>
 
+                            <!-- Nama Produk -->
+                            <div style="font-size: 9px; padding: 2px; line-height: 1.1;">
+                                <span t-esc="label.product_id.name"/>
+                            </div>
 
-                                    <!-- Nama Produk -->
-                                    <div style="font-size:14px; padding: 7px;">
-                                        <span t-esc="label.product_id.name"/>
-                                    </div>
+                            <!-- Harga -->
+                            <div style="text-align: center; font-size: 9px; padding: 3px;">
+                                <span style="text-decoration: line-through; color: gray;">
+                                    Rp. <span t-esc="'{:,.0f}'.format(label.product_id.list_price)"/>
+                                </span><br/>
+                                <span style="font-weight: bold; font-size: 9px;">
+                                    Rp. <span t-esc="'{:,.0f}'.format(label.product_id.standard_price)"/>
+                                </span>
+                            </div>
 
-                                    <!-- Harga -->
-                                    <div style="text-align: center; font-size:14px; padding: 12px;">
-                                        <span style="text-decoration:line-through; color:gray;">
-                                            Rp. <span t-esc="'{:,.0f}'.format(label.product_id.list_price)"/>
-                                        </span><br/>
-                                        <span style="font-weight:bold; font-size:14px;">
-                                            Rp. <span t-esc="'{:,.0f}'.format(label.product_id.standard_price)"/>
-                                        </span>
-                                    </div>
+                            <!-- Color dan Material -->
+                            <div style="font-size: 7px; padding: 1px; line-height: 1.1;">
+                                Color:
+                                <span t-esc="', '.join([a.name for a in label.product_id.product_template_attribute_value_ids if a.attribute_id.name.lower() == 'color'])"/>
+                            </div>
+                            <div style="font-size: 7px; padding: 1px; line-height: 1.1;">
+                                Material:
+                                <span t-esc="', '.join([a.name for a in label.product_id.product_template_attribute_value_ids if a.attribute_id.name.lower() == 'material'])"/>
+                            </div>
+                        </td>
 
-                                    <!-- Color dan Material -->
-                                    <div style="font-size:14px; padding: 5px;">
-                                        Color :
-                                        <span t-esc="', '.join([a.name for a in label.product_id.product_template_attribute_value_ids if a.attribute_id.name.lower() == 'color'])"/>
-                                    </div>
-                                    <div style="font-size:14px; padding: 5px;">
-                                        Material :
-                                        <span t-esc="', '.join([a.name for a in label.product_id.product_template_attribute_value_ids if a.attribute_id.name.lower() == 'material'])"/>
-                                    </div>
-                                </td>
-
-                                <!-- Kolom tanggal vertikal -->
-                                <td style="text-align:center; vertical-align:middle;
-                                           writing-mode: vertical-rl; text-orientation: upright;
-                                           font-size:11px; font-weight:bold; transform: rotate(270deg);">
+                        <!-- Kolom tanggal vertikal -->
+                        <td style="width: 5%; text-align: center; font-size: 7px;">
+                          <div style="-ms-transform: rotate(270deg); -webkit-transform: rotate(270deg);">
+                                <b>
                                     <span t-esc="time.strftime('%d%m%y')"/>
-                                </td>
-
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                </t>
+                                </b>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             </t>
         </t>
+    </t>
     </template>
 
 
