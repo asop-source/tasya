@@ -20,6 +20,7 @@ class PrintProductLabelLine(models.TransientModel):
     qty = fields.Integer(string='Label Qty', default=1)
     custom_value = fields.Char(help="This field can be filled manually to use in label templates.")
     company_id = fields.Many2one(comodel_name='res.company', compute='_compute_company_id')
+    strikethrough = fields.Boolean("Is Strikethrough", default=True)
     # Allow users to specify a partner to use it on label templates
     partner_id = fields.Many2one(comodel_name='res.partner', readonly=False)
 

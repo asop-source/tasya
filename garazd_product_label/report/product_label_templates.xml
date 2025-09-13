@@ -89,14 +89,20 @@
                             </div>
 
                             <!-- Harga -->
-                            <div style="text-align: center; font-size: 9px; padding: 3px;">
+                            <div t-if="label.strikethrough" style="text-align: center; font-size: 9px; padding: 3px;">
                                 <span style="text-decoration: line-through; color: gray;">
                                     Rp. <span t-esc="'{:,.0f}'.format(label.product_id.list_price)"/>
-                                </span><br/>
+                                </span>
+                                <br/>
                                 <span style="font-weight: bold; font-size: 9px;">
                                     Rp. <span t-esc="'{:,.0f}'.format(label.product_id.standard_price)"/>
                                 </span>
                             </div>
+                           <div else="" style="text-align: center; font-size: 9px; padding: 3px;">
+                                <span style="font-weight: bold; font-size: 9px;">
+                                    Rp. <span t-esc="'{:,.0f}'.format(label.product_id.list_price)"/>
+                                </span>
+                           </div>
 
                             <!-- Color dan Material -->
                             <div style="font-size: 7px; padding: 1px; line-height: 1.1;">

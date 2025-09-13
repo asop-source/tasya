@@ -64,6 +64,7 @@
                                 <field name="partner_id" optional="hide"/>
                                 <field name="product_id"/>
                                 <field name="barcode" optional="show"/>
+                                <field name="strikethrough" widget="boolean_toggle"/>
                                 <field name="custom_value" optional="hide"/>
                                 <field name="company_id" groups="base.group_multi_company" optional="hide"/>
                                 <button name="action_minus_qty" type="object" title="Decrease Qty" icon="fa-minus" class="btn-light"/>
