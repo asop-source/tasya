@@ -68,7 +68,7 @@
                         <!-- QR Code -->
                         <td style="width: 40%; text-align: center; padding-right: 3px;">
                             <div t-field="label.product_id.default_code"
-                                 t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 70, 'height': 70, 'humanreadable': 0}"/>
+                                 t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 80, 'height': 80, 'humanreadable': 0}"/>
                             <div style="margin-top: 1px; background: #e3f2fd; padding: 1px 2px; font-size: 7px; font-weight: bold;">
                                 <span t-esc="label.product_id.default_code or ''"/>
                             </div>
@@ -105,13 +105,13 @@
                            </div>
 
                             <!-- Color dan Material -->
-                            <div style="font-size: 7px; padding: 1px; line-height: 1.1;">
+                           <div style="font-size: 7px; padding: 1px; line-height: 1.1;">
                                 Color:
-                                <span t-esc="', '.join([a.name for a in label.product_id.product_template_attribute_value_ids if a.attribute_id.name.lower() == 'color'])"/>
+                                <span t-esc="', '.join([a.name for a in label.product_id.product_template_attribute_value_ids if a.attribute_id.name and a.attribute_id.name == 'Warna'])"/>
                             </div>
                             <div style="font-size: 7px; padding: 1px; line-height: 1.1;">
                                 Material:
-                                <span t-esc="', '.join([a.name for a in label.product_id.product_template_attribute_value_ids if a.attribute_id.name.lower() == 'material'])"/>
+                                <span t-esc="', '.join([a.name for a in label.product_id.product_template_attribute_value_ids if a.attribute_id.name and a.attribute_id.name == 'Bahan'])"/>
                             </div>
                         </td>
 
