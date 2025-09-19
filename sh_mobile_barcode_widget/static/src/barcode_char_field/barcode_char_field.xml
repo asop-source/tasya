@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="sh_mobile_barcode_widget.BarcodeCharField" t-inherit="web.CharField" t-inherit-mode="primary">
+        <xpath expr="//t[@t-else='']" position="after">
+            <div class="p-2">
+                <div t-if="hasBarcodeButtons">
+                    <button
+                        t-on-click="onStartBarcodeScanning"
+                        type="button"
+                        class="btn btn-primary"
+                        tabindex="-1"
+                        draggable="false"
+                        aria-label="Start Scanning"
+                        title="Start Scanning"
+                        data-tooltip="Start Scanning"><i class="fa fa-barcode"></i> Start</button>
+                    <button t-if="hasStopScanningBtn"
+                        t-on-click="onStopBarcodeScanning"
+                        type="button"
+                        class="btn ms-3 btn-danger"
+                        tabindex="-1"
+                        draggable="false"
+                        aria-label="Stop Scanning"
+                        title="Stop Scanning"
+                        data-tooltip="Stop Scanning"><i class="fa fa-barcode"></i> Stop</button>
+                </div>
+                <div class="mt16 sh_mobile_barcode_video_container" t-if="hasVideoPreview">
+                    <div class="input-group">
+                        <span class="input-group-text border-0 bg-white fw-bolder">Camera</span>
+                        <select class="col-8 form-select" t-ref="selectCamera" t-on-change.stop="(ev) => this.onChangeCameraSelection(ev.target.value)"></select>
+                    </div>
+                    <video t-ref="videoPreview" muted="true" autoplay="true" playsinline="true" class="bordered w-100 h-100 rounded-1 cursor-pointer mt8"/>
+                    <t t-if="scannedBarcodeResult">
+                        <span style="display: block;">Result:</span>
+                        <code t-out="scannedBarcodeResult"/>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

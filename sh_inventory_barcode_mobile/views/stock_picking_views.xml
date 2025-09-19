@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Stock Picking Form -->
+    <record id="sh_inventory_barcode_mobile_picking_form" model="ir.ui.view">
+        <field name="name">sh.inventory.barcode.mobile.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="inside">
+                <group invisible="state not in ('assigned','draft','confirmed')">
+                    <field name="sh_stock_bm_is_cont_scan" invisible="True" />
+                    <field name="sh_stock_barcode_mobile" widget="sh_char_barcode" options="{'continuously_scan_field':'sh_stock_bm_is_cont_scan'}"/>
+                </group>
+            </xpath>
+
+            <!-- Add attribute options can_scan_barcode=True in Product_id for barcode scan. -->
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']"
+                position="attributes">
+                <attribute name="options">{'can_scan_barcode':True}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

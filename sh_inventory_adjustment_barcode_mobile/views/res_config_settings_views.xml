@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_inven_adjt_barcode_mobile_res_config_settings_form" model="ir.ui.view">
+        <field name="name">sh.inven.adjt.barcode.mobile.res.config.settings.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <block name="barcode_setting_container" position="before">
+                <block title="Stock Adjustment Mobile Barcode Scanner"
+                    name="sh_inventory_adjustment_barcode_mobile_settings">
+                    <setting string="Product Scan Options In Mobile">
+                        <field name="sh_inventory_adjt_barcode_mobile_type" widget="radio" />
+                    </setting>
+
+                    <setting string="Continuously Scan?" help="Continuous scanning or not">
+                        <field name="sh_inventory_adjt_bm_is_cont_scan" />
+                    </setting>
+
+                    <setting string="Notification On Product Succeed?"
+                        help=" Notification on Succeed">
+                        <field name="sh_inventory_adjt_bm_is_notify_on_success" />
+                    </setting>
+
+                    <setting string="Notification On Product Failed?" help="Notification on Failed">
+                        <field name="sh_inventory_adjt_bm_is_notify_on_fail" />
+                    </setting>
+
+                    <setting string="Play Sound On Product Succeed?"
+                        help="Play Sound On Product Succeed"
+                        invisible="not sh_inventory_adjt_bm_is_notify_on_success">
+                        <field name="sh_inventory_adjt_bm_is_sound_on_success" />
+                    </setting>
+
+                    <setting string="Play Sound On Product Failed?"
+                        help="Play Sound On Product Failed"
+                        invisible="not sh_inventory_adjt_bm_is_notify_on_fail">
+                        <field name="sh_inventory_adjt_bm_is_sound_on_fail" />
+                    </setting>
+
+                </block>
+            </block>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+  <t t-name="sh_inventory_adjustment_barcode_mobile.ListView" t-inherit="web.ListView" t-inherit-mode="primary">
+    <xpath expr="//t[@t-component='props.Renderer']" position="before">
+
+      <div class="row js_cls_sh_barcode_scanner_scanning_wrapper" style="align-items: center; padding: 10px 16px;">
+        <div class="col-md-4" t-if="hasStockMultiLocations">
+          <div class="form-group mb-0">
+            <select
+              t-on-change="onChangeLocationSelection"
+              class="form-control">
+              <t t-foreach="stockLocations" t-as="location" t-key="location.id">
+                <option t-att-value="location.id" t-att-selected="location.id === selectedStockLocationId and 'selected' or None">
+                  <span t-out="location.display_name" />
+                </option>
+              </t>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <input type="text"
+            t-ref="inputBarcode"
+            t-on-change="onChangeBarcodeMobileStockQuantInput"
+            autofocus="autofocus"
+            class="form-control" placeholder="barcode" />
+        </div>
+        <div class="col-md-4" t-if="isStockManager" style="display: flex; justify-content: flex-start; align-items: center;">
+          <div style="margin-right: 10px;display: flex;align-items: center;">
+            <input
+              t-on-change="onChangeScanNegativeStockCheckBox"
+              type="checkbox"
+              class="scan_negative_stock_cls"
+              name="scan_negative_stock"
+              style="height: 15px; width: 15px;"
+              t-att-checked="scanNegativeStock ? true : undefined"
+            />
+          </div>
+          <div style="margin-right: 50px;">
+            <label for="scan_negative_stock"> Negative Counted Quantity?</label>
+          </div>
+
+          <div>
+            <button
+              class="btn btn-primary"
+              t-on-click="onClickStockQuantApply">
+              <i class="fa fa-fw o_button_icon fa-save"></i>
+              <span>Apply</span>
+
+            </button>
+          </div>
+        </div>
+
+        <div t-ref="alertMsg" class="col-12"></div>
+      </div>
+
+
+      <section style='padding: 0 16px;'>
+        <ShBarcodeMobile 
+        continuouslyScan="this.isContinuouslyScan"
+        onBarcodeDetected.bind="(barcode) => this.handelMobileBarcode(barcode)"></ShBarcodeMobile>
+      </section>
+    </xpath>
+    </t>
+
+</templates>

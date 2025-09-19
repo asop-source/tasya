@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <!-- 
+		================================================
+		STOCK MOVE LINE KANBAN (IN MOBILE VIEW) 
+		================================================		
+		-->
+
+        <record id="sh_inventory_barcode_mobile_stock_move_line_kanban" model="ir.ui.view">
+            <field name="name">sh.inventory.barcode.mobile.stock.move.line.kanban</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_kanban" />
+            <field name="arch" type="xml">
+                <field name="product_uom_id" position="after">
+                    <field name="location_id" />
+                    <field name="location_dest_id" />
+                    <field name="company_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="sh_inventory_barcode_mobile_view_stock_move_line_detailed_operation_tree_inherit" model="ir.ui.view">
+            <field name="name">sh_stock.move.line.view.tree.inherit</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+            <field name="arch" type="xml">
+                <!-- Add attribute options can_scan_barcode=True in Product_id for barcode scan. -->
+                <field name="product_id" position="attributes">
+                    <attribute name="options">{'can_scan_barcode':True}</attribute>
+                </field>
+            </field>
+        </record>
+    
+        <record id="sh_inventory_barcode_mobile_view_move_line_form_inherit" model="ir.ui.view">
+            <field name="name">sh.stock.move.line.view.form.inherit</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <!-- Add attribute options can_scan_barcode=True in Product_id for barcode scan. -->
+                <field name="product_id" position="attributes">
+                    <attribute name="options">{'can_scan_barcode':True}</attribute>
+                </field>
+            </field>
+        </record>
+
+</odoo>

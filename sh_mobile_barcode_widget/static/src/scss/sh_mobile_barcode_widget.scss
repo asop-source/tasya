@@ -1,0 +1,13 @@
+@media only screen and (max-width: 768px) {
+    .sh_mobile_barcode_video_container 
+    {
+        video{
+            border: 1px solid gray;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            color: red;
+        }
+    }
+}
