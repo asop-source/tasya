@@ -19,4 +19,5 @@ export const soundNotificationService = {
     },
 };
 
-registry.category("services").add("sound_notification", soundNotificationService);
+// registry.category("services").add("sound_notification", soundNotificationService);
+registry.category("services").add("sh_sound_notification_mobile", soundNotificationService);
